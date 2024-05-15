@@ -17,14 +17,12 @@ const Home = () => {
       </section>
 
       <section className="min-h-screen my-10">
-      <h2 className="text-2xl text-center">Explore The Collection</h2>
-
+        <h2 className="text-2xl text-center">Explore The Collection</h2>
         <ExploreCollection />
       </section>
 
       <section className="min-h-screen my-10">
-        <h2 className="text-2xl text-center">SEE THE ENTIRE COLLECTION
-</h2>
+        <h2 className="text-2xl text-center">SEE THE ENTIRE COLLECTION</h2>
         <EntireCollection />
       </section>
     </main>

@@ -1,4 +1,4 @@
-import { Header, Footer, Home } from "config/constant";
+import { Header, Footer, Home,ProductCollection, ProductCart,AccountLogin,AccountRegister } from "config/constant";
 import { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
@@ -9,6 +9,10 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/collections" element={<ProductCollection />} />
+            <Route path="/cart" element={<ProductCart />} />
+            <Route path="/account/login" element={<AccountLogin />} />
+            <Route path="/account/register" element={<AccountRegister />} />
           </Routes>
           <Footer />
         </BrowserRouter>
