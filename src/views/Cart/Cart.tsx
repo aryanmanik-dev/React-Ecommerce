@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { deleteSingleProduct } from "store/features/productSlice";
-import { ReactComponent as Xmark } from "assets/SvgIcons/XMark.svg";
+import { deleteSingleProduct } from "@store/features/productSlice";
+import { ReactComponent as Xmark } from "@assets/SvgIcons/XMark.svg";
 // Define types for your Redux state
 interface Product {
   id: string;

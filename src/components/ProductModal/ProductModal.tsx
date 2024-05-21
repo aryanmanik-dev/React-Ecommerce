@@ -4,7 +4,7 @@ import {
   addProductToCart,
   fetchSingleProduct,
   removeProductFromCart,
-} from "store/features/productSlice";
+} from "@store/features/productSlice";
 
 interface ModalProps {
   showModal: boolean;

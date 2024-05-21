@@ -1,9 +1,21 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "baseUrl": "./src",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": ".",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "paths": {
+
+      "@assets/*": [
+        "./src/assets/*"
+      ],
+
+      "@store/*": [
+        "./src/store/*"
+      ],
       "@components/*": [
         "./src/components/*"
       ],
@@ -24,10 +36,6 @@
       ],
       "@type/*": [
         "./src/types/*"
-      ],
-
-      "@assets/*": [
-        "./src/assets/*"
       ],
       "@services/*": [
         "./src/services/*"
@@ -50,5 +58,7 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

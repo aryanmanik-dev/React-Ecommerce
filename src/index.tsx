@@ -4,7 +4,7 @@ import  "./styles/main.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { store } from "./store/store";
-import { client } from "framework/index";
+import { client } from "@framework/index";
 import { Provider } from "react-redux";
 import { ApolloProvider } from "@apollo/client";
 const root = ReactDOM.createRoot(

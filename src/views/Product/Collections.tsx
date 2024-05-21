@@ -1,7 +1,7 @@
-import CustomDropdown from "components/CustomDropdown/CustomDropdown";
+import CustomDropdown from "@components/CustomDropdown/CustomDropdown";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "store/features/productSlice";
+import { fetchProducts } from "@store/features/productSlice";
 
 const Collections = () => {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
-import Bag from "assets/SvgIcons/Bag";
-import { ReactComponent as Search } from "assets/SvgIcons/Search.svg";
-import { ReactComponent as User } from "assets/SvgIcons/User.svg";
-import Whishlist from "assets/SvgIcons/Whishlist";
+import Bag from "@assets/SvgIcons/Bag";
+import { ReactComponent as Search } from "@assets/SvgIcons/Search.svg";
+import { ReactComponent as User } from "@assets/SvgIcons/User.svg";
+import Whishlist from "@assets/SvgIcons/Whishlist";
 import { Link } from "react-router-dom";
 import "./Header.scss";
 import NowTrending from "../NowTrending/NowTrending";

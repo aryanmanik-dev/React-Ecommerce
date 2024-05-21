@@ -1,7 +1,7 @@
-import EntireCollection from "components/EntireCollection/EntireCollection";
-import ExploreCollection from "components/ExploreCollection/ExploreCollection";
-import LandingPage from "components/LandingPage/LandingPage";
-import ProductCard from "components/ProductCard/ProductCard";
+import EntireCollection from "@components/EntireCollection/EntireCollection";
+import ExploreCollection from "@components/ExploreCollection/ExploreCollection";
+import LandingPage from "@components/LandingPage/LandingPage";
+import ProductCard from "@components/ProductCard/ProductCard";
 
 const Home = () => {
   return (
