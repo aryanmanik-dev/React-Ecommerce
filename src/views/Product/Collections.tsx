@@ -4,24 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "store/features/productSlice";
 
 const Collections = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [columns, setColumns] = useState(2);
   const [text, setText] = useState("");
-  const [selectedOption, setSelectedOption] = useState("");
-
   const headerText = "Spring Summer Collection 2024";
   const productData = useSelector((state: any) => state.product.products);
-//   console.log(productData);
   let filteredProducts = productData.filter((prod: any) => prod.price >= 0);
   filteredProducts.sort((a: any, b: any) => a.price - b.price);
   console.log(filteredProducts);
-
-
-
-  
   const dispatch = useDispatch();
   useEffect(() => {
-    // dispatch(fetchProducts() as any);
     if (productData.length === 0) {
         dispatch(fetchProducts() as any);
       }
