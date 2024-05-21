@@ -1,4 +1,4 @@
-import { Header, Footer, Home,ProductCollection, ProductCart,AccountLogin,AccountRegister } from "config/constant";
+import { Header, Footer, Home,ProductCollection, ProductCart,AccountLogin,AccountRegister } from "@config/constant";
 import { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {

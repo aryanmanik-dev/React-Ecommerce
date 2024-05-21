@@ -1,8 +1,8 @@
-import ProductModal from "components/ProductModal/ProductModal";
+import ProductModal from "@components/ProductModal/ProductModal";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addProductToCart, fetchProducts } from "store/features/productSlice";
-import { ReactComponent as ProductBag} from "assets/SvgIcons/ProductBag.svg";
+import { addProductToCart, fetchProducts } from "@store/features/productSlice";
+import { ReactComponent as ProductBag} from "@assets/SvgIcons/ProductBag.svg";
 const ProductCard = () => {
   const apiUrl = 'http://localhost:3000/products'
   const [isOpen, setIsOpen] = useState(false);

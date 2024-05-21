@@ -1,15 +1,14 @@
-import CustomDropdown from "components/CustomDropdown/CustomDropdown";
+import CustomDropdown from "@components/CustomDropdown/CustomDropdown";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "store/features/productSlice";
+import { fetchProducts } from "@store/features/productSlice";
 
 const Collections = () => {
   const dispatch = useDispatch();
-  const apiUrl = "http://localhost:3000/products" ?? "https://fakestoreapi.com/products";
+  const apiUrl = "http://localhost:3000/products";
   const [columns, setColumns] = useState(2);
   const [text, setText] = useState("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-
   const headerText = "Spring Summer Collection 2024";
   const productData = useSelector((state: any) => state.product.products);
   const itemsPerPage = 10;
@@ -23,7 +22,7 @@ const Collections = () => {
     if (productData) {
       dispatch(fetchProducts(apiUrl) as any);
     }
-  }, []);
+  }, [productData,dispatch,apiUrl]);
   useEffect(() => {
     let currentIndex = 0;
     const interval = setInterval(() => {
@@ -36,7 +35,7 @@ const Collections = () => {
     }, 100);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [headerText]);
 
   const dropdownData = [
     {
@@ -44,17 +43,13 @@ const Collections = () => {
       value: "price_low_to_high",
     },
   ];
-
   const handleDropDownChange = (selected: string) => {};
-
   const handlePrevClick = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
-
   const handleNextClick = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
-
   return (
     <section className="min-h-screen mt-20 p-10">
       <h2 className="text-4xl text-center p-20">
