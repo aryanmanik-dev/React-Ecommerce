@@ -1,13 +1,13 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Define an async thunk to fetch products from the API
 export const fetchProducts = createAsyncThunk(
   "product/fetchProducts",
-  async () => {
+  async (apiUrl:string) => {
     try {
       // Make the API request to fetch products
-      const response = await axios.get(`https://fakestoreapi.com/products`);
+      const response = await axios.get(apiUrl);
 
       // Return the products data
       return response.data;
@@ -24,8 +24,10 @@ export const fetchSingleProduct = createAsyncThunk(
   async (id: number | string) => {
     try {
       // Make the API request to fetch products
+      const productId = String(id);
+
       const response = await axios.get(
-        `https://fakestoreapi.com/products/${id}`
+        `http://localhost:3000/products/${productId}`
       );
       console.log(response);
 
@@ -38,6 +40,20 @@ export const fetchSingleProduct = createAsyncThunk(
   }
 );
 
+export const deleteSingleProduct = createAsyncThunk(
+  "product/deleteSingleProduct",
+  async (id: number | string) => {
+    try {
+      const response = await axios.delete(
+        `https://fakestoreapi.com/products/${id}`
+      );
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 // Define the initial state
 const initialState = {
   products: [],
@@ -91,8 +107,6 @@ const productSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(state.cart));
       localStorage.setItem("totalQuantity", state.totalQuantity.toString());
     },
-
-
     removeProductFromCart: (state, action: any) => {
       const productIdToRemove = action.payload;
     

@@ -2,8 +2,9 @@ import ProductModal from "components/ProductModal/ProductModal";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addProductToCart, fetchProducts } from "store/features/productSlice";
-import ProductBag from "assets/SvgIcons/ProductBag";
+import { ReactComponent as ProductBag} from "assets/SvgIcons/ProductBag.svg";
 const ProductCard = () => {
+  const apiUrl = 'http://localhost:3000/products'
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [productId, setProductId] = useState<number | string>(0);
@@ -14,8 +15,8 @@ const ProductCard = () => {
   console.log(productData);
 
   useEffect(() => {
-    dispatch(fetchProducts() as any);
-  }, []);
+    dispatch(fetchProducts(apiUrl) as any);
+  }, [dispatch, apiUrl]);
 
   const closeModal = () => {
     setShowModal(false);
@@ -23,6 +24,7 @@ const ProductCard = () => {
 
   const openModal = (id: number | string) => {
     setShowModal(true);
+    console.log(typeof id)
     setProductId(id);
   };
 
@@ -39,7 +41,7 @@ const ProductCard = () => {
               <div className="relative">
                 <img
                   className="h-80 w-full object-contain transition duration-300 ease-in-out transform hover:scale-105"
-                  src={i.image}
+                  src={i.product_image}
                   alt="Item"
                 />
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100">
@@ -57,7 +59,7 @@ const ProductCard = () => {
                   {i.name}
                 </div>
                 <div className="mt-4">
-                  <p className="text-gray-600">Price: AED {i.price}</p>
+                  <p className="text-gray-600">Price: AED {i.discount_price}</p>
                 </div>
                 <button
                   onClick={() => {
@@ -76,7 +78,7 @@ const ProductCard = () => {
       <ProductModal
         showModal={showModal}
         onClose={closeModal}
-        productId={productId}
+        productId={productId.toString()}
       />
     </>
   );

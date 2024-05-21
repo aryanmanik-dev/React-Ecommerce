@@ -4,27 +4,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "store/features/productSlice";
 
 const Collections = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const apiUrl = "http://localhost:3000/products" ?? "https://fakestoreapi.com/products";
   const [columns, setColumns] = useState(2);
   const [text, setText] = useState("");
-  const [selectedOption, setSelectedOption] = useState("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const headerText = "Spring Summer Collection 2024";
   const productData = useSelector((state: any) => state.product.products);
-//   console.log(productData);
-  let filteredProducts = productData.filter((prod: any) => prod.price >= 0);
-  filteredProducts.sort((a: any, b: any) => a.price - b.price);
-  console.log(filteredProducts);
+  const itemsPerPage = 10;
+  // Calculate the index of the first and last item of the current page
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = productData.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(productData.length / itemsPerPage);
 
-
-
-  
-  const dispatch = useDispatch();
   useEffect(() => {
-    // dispatch(fetchProducts() as any);
-    if (productData.length === 0) {
-        dispatch(fetchProducts() as any);
-      }
+    if (productData) {
+      dispatch(fetchProducts(apiUrl) as any);
+    }
   }, []);
   useEffect(() => {
     let currentIndex = 0;
@@ -47,7 +45,14 @@ const Collections = () => {
     },
   ];
 
-  const handleDropDownChange = (selected: string) => {
+  const handleDropDownChange = (selected: string) => {};
+
+  const handlePrevClick = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const handleNextClick = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
   return (
@@ -56,7 +61,6 @@ const Collections = () => {
         {text}
         <span className="cursor">|</span>
       </h2>
-
       <div className="flex  justify-between items-center py-10">
         <CustomDropdown
           buttonText="Relevance"
@@ -106,7 +110,6 @@ const Collections = () => {
           </span>
         </div>
       </div>
-
       <div
         className={`grid grid-cols-1 ${
           columns === 1
@@ -122,20 +125,22 @@ const Collections = () => {
             : "md:grid-cols-5"
         } gap-4 h-80vh`}
       >
-        {productData?.map((product: any) => (
-          <div key={product.id} className="bg-white shadow-md p-4 rounded-lg">
+        {currentItems?.map((product: any) => (
+          <div key={product} className="bg-white shadow-md p-4 rounded-lg">
             <img
               className="h-80 w-full object-contain transition duration-300 ease-in-out transform hover:scale-105"
-              src={product.image}
+              src={product.product_image}
               alt="Item"
             />
 
             <div className="text-gray-800">
-              <h2 className="text-lg font-semibold mb-2 truncate">
-                {product.title}
+              <h2 className="text-lg font-semibold mb-2 truncate mt-3">
+                {product.product_title}
               </h2>
               <p className="text-sm text-gray-600 mb-4 truncate">
-                {product.description}
+                <span className="line-through">
+                  {product.actual_price} - {product.discount_price}
+                </span>
               </p>
               <button className="mt-4 w-full bg-white border border-black rounded-full px-4 py-2 transition-colors duration-300 ease-in-out hover:bg-black hover:text-white">
                 Shop Now
@@ -143,6 +148,27 @@ const Collections = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="flex justify-center my-4">
+        <button
+          className={`mx-2 px-4 py-2 rounded-lg bg-blue-500 text-white ${
+            currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          onClick={handlePrevClick}
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
+        <button
+          className={`mx-2 px-4 py-2 rounded-lg bg-blue-500 text-white ${
+            currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          onClick={handleNextClick}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
       </div>
     </section>
   );

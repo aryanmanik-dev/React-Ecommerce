@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-
-// import { LandingVideo } from "../../assets/videos/LandingVideo.mp4";
 const LandingPage = () => {
   return (
     <div className="relative h-screen">
