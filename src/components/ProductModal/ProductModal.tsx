@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addProductToCart, fetchSingleProduct, removeProductFromCart } from "store/features/productSlice";
+import {
+  addProductToCart,
+  fetchSingleProduct,
+  removeProductFromCart,
+} from "store/features/productSlice";
 
 interface ModalProps {
   showModal: boolean;
@@ -13,13 +17,12 @@ const ProductModal: React.FC<ModalProps> = ({
   productId,
   onClose,
 }) => {
-    const cartQuantity = useSelector((state: any) => state.product.totalQuantity);
+  const cartQuantity = useSelector((state: any) => state.product.totalQuantity);
 
   const [quantity, setQuantity] = useState(1);
   const singleProduct = useSelector(
     (state: any) => state.product.singleProduct
   );
-
   console.log(singleProduct);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -45,7 +48,7 @@ const ProductModal: React.FC<ModalProps> = ({
               <div className="flex p-0 md:p-6 flex-col md:flex-row items-center gap-3 m-0">
                 <div className="w-1/2  ">
                   <img
-                    src={singleProduct?.image}
+                    src={singleProduct?.product_image}
                     alt="Product"
                     className="w-auto h-[40vh] object-contain"
                   />
@@ -54,7 +57,7 @@ const ProductModal: React.FC<ModalProps> = ({
                   <div className="flex justify-between items-center">
                     <div className="max-w-[70%]">
                       <h4 className="text-xl font-semibold text-transform: capitalize truncate">
-                        {singleProduct?.title}
+                        {singleProduct?.product_title}
                       </h4>
                     </div>
                     <button
@@ -112,7 +115,7 @@ const ProductModal: React.FC<ModalProps> = ({
                       <div className="flex items-center">
                         <button
                           onClick={() => {
-                            dispatch(removeProductFromCart(productId as any))
+                            dispatch(removeProductFromCart(productId as any));
                           }}
                           disabled={quantity <= 1}
                           className="px-4 py-2 bg-white text-gray-700 rounded-l-md border border-gray-250 hover:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-400"
@@ -124,8 +127,8 @@ const ProductModal: React.FC<ModalProps> = ({
                         </span>
                         <button
                           onClick={() => {
-                            dispatch(addProductToCart(singleProduct))
-                            setQuantity(quantity + 1)
+                            dispatch(addProductToCart(singleProduct));
+                            setQuantity(quantity + 1);
                           }}
                           className="px-4 py-2 bg-white text-gray-700 rounded-r-md border border-gray-250 hover:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-400"
                         >
