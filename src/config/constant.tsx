@@ -8,3 +8,6 @@ export const ProductCollection = React.lazy(() => import('@views/Product/Collect
 export const ProductCart = React.lazy(() => import('@views/Cart/Cart'));
 export const AccountLogin = React.lazy(() => import('@views/Account/Login'));
 export const AccountRegister = React.lazy(() => import('@views/Account/Register'));
+export const ViewProduct = React.lazy(() => import('@views/Product/ViewProduct'));
+// Admin
+export const Dashboard = React.lazy(() => import('@views/Dashboard/Homepage'));

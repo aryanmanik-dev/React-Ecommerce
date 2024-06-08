@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addProductToCart,
+  addToCart,
   fetchSingleProduct,
   removeProductFromCart,
 } from "@store/features/productSlice";
@@ -20,9 +20,7 @@ const ProductModal: React.FC<ModalProps> = ({
   const cartQuantity = useSelector((state: any) => state.product.totalQuantity);
 
   const [quantity, setQuantity] = useState(1);
-  const singleProduct = useSelector(
-    (state: any) => state.product.singleProduct
-  );
+  const singleProduct = useSelector((state: any) => state.product.singleProduct);
   console.log(singleProduct);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -127,7 +125,7 @@ const ProductModal: React.FC<ModalProps> = ({
                         </span>
                         <button
                           onClick={() => {
-                            dispatch(addProductToCart(singleProduct));
+                            dispatch(addToCart(singleProduct._id) as any);
                             setQuantity(quantity + 1);
                           }}
                           className="px-4 py-2 bg-white text-gray-700 rounded-r-md border border-gray-250 hover:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-400"

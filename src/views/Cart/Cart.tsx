@@ -1,6 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
-import { deleteSingleProduct } from "@store/features/productSlice";
-import { ReactComponent as Xmark } from "@assets/SvgIcons/XMark.svg";
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  deleteSingleProduct,
+  fetchCartProducts,
+} from '@store/features/productSlice';
+import { ReactComponent as Xmark } from '@assets/SvgIcons/XMark.svg';
+import { useEffect } from 'react';
 // Define types for your Redux state
 interface Product {
   id: string;
@@ -16,21 +20,22 @@ interface ProductState {
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const alladdpro = useSelector((state: any) => state.product.cart);
-  console.log(alladdpro);
-  const getCartProducts = localStorage.getItem("cart");
-  const parsedPrdoucts = JSON.parse(getCartProducts!);
+  useEffect(() => {
+    dispatch(fetchCartProducts() as any);
+  }, []);
+
+  const allCartProducts = useSelector((state: any) => state.product.totalQuantity || []);
   function removeNonNumeric(str: string) {
-    return parseFloat(str.replace(/[^\d.]/g, ""));
+    return parseFloat(str.replace(/[^\d.]/g, ''));
   }
 
-  const totalPrice = alladdpro.reduce(
+  const totalPrice = allCartProducts.reduce(
     (acc: number, product: any) =>
       acc +
-      removeNonNumeric(product.discount_price) * parseInt(product.quantity),
+      removeNonNumeric(product.productVar.discount_price) * parseInt(product.quantity),
     0
   );
-  const totalQuantity = alladdpro.reduce(
+  const totalQuantity = allCartProducts.reduce(
     (acc: number, product: any) => acc + product.quantity,
     0
   );
@@ -74,22 +79,27 @@ const Cart = () => {
             </tr>
           </thead>
           <tbody>
-            {alladdpro.map((product: any, index: number) => (
+            {allCartProducts.map((product: any, index: number) => (
               <tr className="bg-white text-black ">
                 <td className="px-6 py-4"> {index + 1}</td>
-                <td className="px-6 py-4"> {product.product_title}</td>
+                <td className="px-6 py-4">
+                  {' '}
+                  {product.productVar.product_title}
+                </td>
                 <td className="px-6 py-4"> {product.quantity}</td>
                 <td className="px-6 py-4">
                   <img
-                    src={product.product_image}
-                    alt={product.product_image}
+                    src={product.productVar.product_image}
+                    alt={product.productVar.product_image}
                     className="w-20 h-20 "
                   />
                 </td>
-                <td className="px-6 py-4 capitalize">{product.category}</td>
+                <td className="px-6 py-4 capitalize">
+                  {product.productVar.category}
+                </td>
                 <td className="px-6 py-4">
                   {/* {parseInt(product.discount_price) * parseInt(product.quantity)} */}
-                  {product.discount_price} X {product.quantity}
+                  {product.productVar.discount_price} X {product.quantity}
                 </td>
                 <td className="px-6 py-4">
                   <span
@@ -103,21 +113,21 @@ const Cart = () => {
               </tr>
             ))}
           </tbody>
-          <thead className=" text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 h-15">
-            <tr>
-              <th scope="col" className="px-6 py-3"></th>
-              <th scope="col" className="px-6 py-3"></th>
-              <th scope="col" className="px-6 py-3">
-                {totalQuantity}
-              </th>
-              <th scope="col" className="px-6 py-3"></th>
-              <th scope="col" className="px-6 py-3"></th>
-              <th scope="col" className="px-6 py-3">
-                $ {totalPrice}
-              </th>
-              <th scope="col" className="px-6 py-3"></th>
-            </tr>
-          </thead>
+            <thead className=" text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 h-15">
+              <tr>
+                <th scope="col" className="px-6 py-3"></th>
+                <th scope="col" className="px-6 py-3"></th>
+                <th scope="col" className="px-6 py-3">
+                  {totalQuantity}
+                </th>
+                <th scope="col" className="px-6 py-3"></th>
+                <th scope="col" className="px-6 py-3"></th>
+                <th scope="col" className="px-6 py-3">
+                  $ {totalPrice}
+                </th>
+                <th scope="col" className="px-6 py-3"></th>
+              </tr>
+            </thead>
         </table>
       </div>
     </div>

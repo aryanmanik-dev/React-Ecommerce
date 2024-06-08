@@ -2,10 +2,12 @@ import CustomDropdown from "@components/CustomDropdown/CustomDropdown";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "@store/features/productSlice";
+import { Link } from "react-router-dom";
+import { baseUrl } from "@src/constant/constant";
 
 const Collections = () => {
   const dispatch = useDispatch();
-  const apiUrl = "http://localhost:3000/products";
+  const apiUrl = `${baseUrl}/get-products`;
   const [columns, setColumns] = useState(2);
   const [text, setText] = useState("");
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -133,13 +135,17 @@ const Collections = () => {
                 {product.product_title}
               </h2>
               <p className="text-sm text-gray-600 mb-4 truncate">
-                <span className="line-through">
-                  {product.actual_price} - {product.discount_price}
+                <span >
+
+                 <i className="line-through">{product.actual_price}</i>  - <b>{product.discount_price}</b> 
                 </span>
               </p>
+
+              <Link to={`/product/view-product/${product.id}`}>
               <button className="mt-4 w-full bg-white border border-black rounded-full px-4 py-2 transition-colors duration-300 ease-in-out hover:bg-black hover:text-white">
                 Shop Now
               </button>
+              </Link>
             </div>
           </div>
         ))}
