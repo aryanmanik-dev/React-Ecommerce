@@ -61,7 +61,7 @@ const ViewProduct = () => {
     const { amount, id: order_id, currency } = result.data;
 
     const options = {
-      key: 'rzp_test_bKdmEvzmhIJ3NG', // Enter the Key ID generated from the Dashboard
+      key: process.env.REACT_APP_RAZOR_PAY_KEY, // Enter the Key ID generated from the Dashboard
       amount: amount.toString(),
       currency: currency,
       name: 'Zilli',
