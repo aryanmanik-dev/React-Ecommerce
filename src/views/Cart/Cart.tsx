@@ -5,6 +5,7 @@ import {
 } from '@store/features/productSlice';
 import { ReactComponent as Xmark } from '@assets/SvgIcons/XMark.svg';
 import { useEffect } from 'react';
+import Header from '@components/TopNavigation/HeaderRow/Header';
 // Define types for your Redux state
 interface Product {
   id: string;
@@ -50,9 +51,10 @@ const Cart = () => {
   };
 
   return (
-    <div className="mt-20">
-      <div className="relative overflow-x-auto min-h-52 scroll-auto">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <>
+    <Header/>
+      <div className="relative overflow-x-auto scroll-auto">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mt-5">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
@@ -130,7 +132,7 @@ const Cart = () => {
             </thead>
         </table>
       </div>
-    </div>
+    </>
   );
 };
 

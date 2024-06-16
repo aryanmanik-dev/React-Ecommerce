@@ -1,17 +1,18 @@
-import CustomDropdown from "@components/CustomDropdown/CustomDropdown";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "@store/features/productSlice";
-import { Link } from "react-router-dom";
-import { baseUrl } from "@src/constant/constant";
+import CustomDropdown from '@components/CustomDropdown/CustomDropdown';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts } from '@store/features/productSlice';
+import { Link } from 'react-router-dom';
+import { baseUrl } from '@src/constant/constant';
+import Header from '@components/TopNavigation/HeaderRow/Header';
 
 const Collections = () => {
   const dispatch = useDispatch();
   const apiUrl = `${baseUrl}/get-products`;
   const [columns, setColumns] = useState(2);
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const headerText = "Spring Summer Collection 2024";
+  const headerText = 'Spring Summer Collection 2024';
   const productData = useSelector((state: any) => state.product.products);
   const itemsPerPage = 10;
   // Calculate the index of the first and last item of the current page
@@ -24,7 +25,7 @@ const Collections = () => {
     if (productData) {
       dispatch(fetchProducts(apiUrl) as any);
     }
-  }, [productData,dispatch,apiUrl]);
+  }, [productData, dispatch, apiUrl]);
   useEffect(() => {
     let currentIndex = 0;
     const interval = setInterval(() => {
@@ -41,8 +42,8 @@ const Collections = () => {
 
   const dropdownData = [
     {
-      title: "Price : Low to High",
-      value: "price_low_to_high",
+      title: 'Price : Low to High',
+      value: 'price_low_to_high',
     },
   ];
   const handleDropDownChange = (selected: string) => {};
@@ -53,7 +54,8 @@ const Collections = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
   return (
-    <section className="min-h-screen mt-20 p-10">
+    <section className="min-h-screen p-10">
+      <Header/>
       <h2 className="text-4xl text-center p-20">
         {text}
         <span className="cursor">|</span>
@@ -110,16 +112,16 @@ const Collections = () => {
       <div
         className={`grid grid-cols-1 ${
           columns === 1
-            ? "md:grid-cols-1"
+            ? 'md:grid-cols-1'
             : columns === 2
-            ? "md:grid-cols-2"
+            ? 'md:grid-cols-2'
             : columns === 3
-            ? "md:grid-cols-3"
+            ? 'md:grid-cols-3'
             : columns === 4
-            ? "md:grid-cols-4"
+            ? 'md:grid-cols-4'
             : columns === 5
-            ? "md:grid-cols-5"
-            : "md:grid-cols-5"
+            ? 'md:grid-cols-5'
+            : 'md:grid-cols-5'
         } gap-4 h-80vh`}
       >
         {currentItems?.map((product: any) => (
@@ -135,16 +137,16 @@ const Collections = () => {
                 {product.product_title}
               </h2>
               <p className="text-sm text-gray-600 mb-4 truncate">
-                <span >
-
-                 <i className="line-through">{product.actual_price}</i>  - <b>{product.discount_price}</b> 
+                <span>
+                  <i className="line-through">{product.actual_price}</i> -{' '}
+                  <b>{product.discount_price}</b>
                 </span>
               </p>
 
-              <Link to={`/product/view-product/${product.id}`}>
-              <button className="mt-4 w-full bg-white border border-black rounded-full px-4 py-2 transition-colors duration-300 ease-in-out hover:bg-black hover:text-white">
-                Shop Now
-              </button>
+              <Link to={`/product/view-product/${product._id}`}>
+                <button className="mt-4 w-full bg-white border border-black rounded-full px-4 py-2 transition-colors duration-300 ease-in-out hover:bg-black hover:text-white">
+                  Shop Now
+                </button>
               </Link>
             </div>
           </div>
@@ -154,7 +156,7 @@ const Collections = () => {
       <div className="flex justify-center my-4">
         <button
           className={`mx-2 px-4 py-2 rounded-lg bg-blue-500 text-white ${
-            currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+            currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''
           }`}
           onClick={handlePrevClick}
           disabled={currentPage === 1}
@@ -163,7 +165,7 @@ const Collections = () => {
         </button>
         <button
           className={`mx-2 px-4 py-2 rounded-lg bg-blue-500 text-white ${
-            currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+            currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''
           }`}
           onClick={handleNextClick}
           disabled={currentPage === totalPages}

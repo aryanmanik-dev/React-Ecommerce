@@ -17,7 +17,7 @@ function App() {
     <div className="min-h-[100vh]">
       <Suspense>
         <BrowserRouter>
-          <Header />
+          {/* <Header /> */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/collections" element={<ProductCollection />} />
